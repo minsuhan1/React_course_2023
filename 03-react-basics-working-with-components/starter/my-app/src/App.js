@@ -1,5 +1,6 @@
 import React from "react";
 
+import NewExpense from "./components/NewExpense/NewExpense";
 import Expenses from "./components/Expenses/Expenses";
 
 const App = () => {
@@ -25,6 +26,11 @@ const App = () => {
     },
   ];
 
+  const addExpenseHandler = (expense) => {
+    console.log("In App.js");
+    console.log(expense);
+  };
+
   // 리액트 컴포넌트를 생성: React.createElement(태그명, 속성 객체, 내부 요소)
   // 하나의 리턴문으로 여러 개의 리액트 컴포넌트(React.createElement의 결과)를 반환할 수가 없다
   // 이것이 JSX에서 항상 wrapper element로 감싸서 리턴해야 하는 이유이다
@@ -38,7 +44,7 @@ const App = () => {
 
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <NewExpense onAddExpense={addExpenseHandler} />
       <Expenses items={expenses} />
     </div>
   );
