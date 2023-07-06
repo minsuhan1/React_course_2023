@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 
+import { counterActions } from "../store/index";
 import classes from "./Counter.module.css";
 
 const Counter = () => {
@@ -7,23 +8,27 @@ const Counter = () => {
   // 리덕스가 저장소의 counter 상태에 컴포넌트가 접근할 수 있게 함 (subscribe 해줌)
   // 컴포넌트가 제거되면 구독도 해제해 줌
   const counter = useSelector((state) => state.counter);
+  const show = useSelector((state) => state.showCounter);
 
   const incrementHandler = () => {
-    dispatch({ type: "increment" });
+    dispatch(counterActions.increment());
+    // { type: SOME_UNIQUE_IDENTIFIER, payload: 10}
   };
   const increaseHandler = () => {
-    dispatch({ type: "increase", amount: 10 });
+    dispatch(counterActions.increase(10));
   };
   const decrementHandler = () => {
-    dispatch({ type: "decrement" });
+    dispatch(counterActions.decrement());
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch(counterActions.toggleCounter());
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {show && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={increaseHandler}>Increase by 10</button>
